@@ -10,6 +10,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/gofiber/fiber/v2 v2.18.0
 	github.com/golang-jwt/jwt/v4 v4.0.0
+	github.com/google/uuid v1.1.2
 	github.com/joho/godotenv v1.3.0
 	github.com/minio/minio-go/v7 v7.0.12
 	github.com/rubenv/sql-migrate v0.0.0-20210614095031-55d5740dbbcc
