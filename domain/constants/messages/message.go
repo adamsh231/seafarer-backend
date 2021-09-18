@@ -1,0 +1,25 @@
+package messages
+
+const (
+	SuccessMessage                           = "success"
+	FailedMessage                            = "failed"
+	TokenIsNotProvidedMessage                = "token is not provided, please request with token"
+	TokenIsNotValidMessage                   = "token is not valid"
+	ApiKeyIsNotProvidedMessage               = "apikey is not provided, please request with apikey"
+	ApiKeyIsNotValidMessage                  = "apikey is not valid"
+	CredentialIsNotMatchMessage              = "credential is not match"
+	AccountIsNotVerifiedMessage              = "your account is not verified yet"
+	AccountIsNotUserRole                     = "your account cannot access the user page"
+	AccountIsNotAdminRole                    = "your account cannot access the admin page"
+	AccountIsVerifiedMessage                 = "your account is already verified"
+	TokenIsExpiredMessage                    = "token is expired, please re-login or revoke token with refresh token"
+	JWTSecretKeyIsMissingMessage             = "please provide the jwt secret key in the environment"
+	JWTMiddlewareIsMissingMessage            = "please add the jwt middleware new first, before proceeding any advanced jwt middleware"
+	BytesReadErrorMessage                    = "sorry error when reading bytes generating otp"
+	OTPIsExpiredMessage                      = "otp is expired, please resend otp"
+	OTPIsNotMatchMessage                     = "otp doesn't match"
+	InterfaceConversionErrorMessage          = "interface conversion error"
+	PasswordAndConfirmPasswordNotSameMessage = "password and confirm password doesn't match"
+	UnauthorizedFile                         = "file is not belong to this user"
+	FileIsExistMessage                       = "file name is already exist"
+)
