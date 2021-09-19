@@ -3,9 +3,9 @@ package messages
 const (
 	SuccessMessage                           = "success"
 	FailedMessage                            = "failed"
-	TokenIsNotProvidedMessage                = "token is not provided, please request with token"
+	TokenIsNotProvidedMessage                = "token is not provided, please requests with token"
 	TokenIsNotValidMessage                   = "token is not valid"
-	ApiKeyIsNotProvidedMessage               = "apikey is not provided, please request with apikey"
+	ApiKeyIsNotProvidedMessage               = "apikey is not provided, please requests with apikey"
 	ApiKeyIsNotValidMessage                  = "apikey is not valid"
 	CredentialIsNotMatchMessage              = "credential is not match"
 	AccountIsNotVerifiedMessage              = "your account is not verified yet"

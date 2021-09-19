@@ -16,6 +16,7 @@ require (
 	github.com/rubenv/sql-migrate v0.0.0-20210614095031-55d5740dbbcc
 	github.com/sirupsen/logrus v1.8.1
 	github.com/ziutek/mymysql v1.5.4 // indirect
+	go.mongodb.org/mongo-driver v1.7.2
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df

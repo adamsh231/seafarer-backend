@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"seafarer-backend/api"
 	"seafarer-backend/domain"
@@ -16,14 +17,19 @@ func main() {
 	}
 	defer config.PostgresConnection.Close()
 	defer config.Redis.Close()
+	defer config.MongoClient.Disconnect(context.Background())
 
 	// Insert Handler Contract
 	handler := api.NewHandler(&api.Contract{
-		App:       config.App,
-		Validator: config.Validator,
-		Postgres:  config.Postgres,
-		Mail:      config.Mail,
-		Redis:     config.Redis,
+		App:             config.App,
+		Validator:       config.Validator,
+		Postgres:        config.Postgres,
+		Mail:            config.Mail,
+		Redis:           config.Redis,
+		MongoDatabase:   config.MongoDatabase,
+		DocAFE:          api.AFEDetail(config.DocAFE),
+		Minio:           config.Minio,
+		MinioBucketName: config.MinioBucketName,
 	})
 
 	// Register routes

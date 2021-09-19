@@ -1,14 +1,17 @@
 package router
 
 import (
+	"seafarer-backend/api"
+	authenticationRouter "seafarer-backend/api/authentication/router"
+	documentRouter "seafarer-backend/api/document/router"
+	storageRouter "seafarer-backend/api/storage/router"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"seafarer-backend/api"
-	authenticationRouter "seafarer-backend/api/authentication/router"
-	"time"
 )
 
 type Router struct {
@@ -52,4 +55,9 @@ func (router Router) RegisterRoutes() {
 	// Auth route
 	authenticationRouter.NewAuthenticationRoute(apiV1Group, router.Handler).RegisterRoute()
 
+	// Document route
+	documentRouter.NewDocumentRoute(apiV1Group, router.Handler).RegisterRoute()
+
+	// Storage route
+	storageRouter.NewFileRoute(apiV1Group, router.Handler).RegisterRoute()
 }
