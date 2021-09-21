@@ -21,7 +21,7 @@ func (route FileRoute) RegisterRoute() {
 
 	// init
 	fileHandler := NewFileHandler(route.Handler)
-	fileRoute := route.RouteGroup.Group("/file")
+	fileRoute := route.RouteGroup.Group("/storage")
 	jwtMiddleware := middlewares.NewJWTMiddleware(route.Handler.Contract)
 
 	// verified user
