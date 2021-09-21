@@ -53,11 +53,14 @@ func (router Router) RegisterRoutes() {
 	apiV1Group := app.Group("/v1")
 
 	// Auth route
-	authenticationRouter.NewAuthenticationRoute(apiV1Group, router.Handler).RegisterRoute()
+	authenticationGroup := apiV1Group.Group("/authentication")
+	authenticationRouter.NewAuthenticationRoute(authenticationGroup, router.Handler).RegisterRoute()
 
 	// Document route
-	documentRouter.NewDocumentRoute(apiV1Group, router.Handler).RegisterRoute()
+	documentGroup := apiV1Group.Group("/document")
+	documentRouter.NewDocumentRoute(documentGroup, router.Handler).RegisterRoute()
 
 	// Storage route
-	storageRouter.NewFileRoute(apiV1Group, router.Handler).RegisterRoute()
+	storageGroup := apiV1Group.Group("/storage")
+	storageRouter.NewFileRoute(storageGroup, router.Handler).RegisterRoute()
 }

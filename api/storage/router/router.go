@@ -20,14 +20,21 @@ func NewFileRoute(routeGroup fiber.Router, handler api.Handler) FileRoute {
 func (route FileRoute) RegisterRoute() {
 
 	// init
-	fileHandler := NewFileHandler(route.Handler)
-	fileRoute := route.RouteGroup.Group("/storage")
 	jwtMiddleware := middlewares.NewJWTMiddleware(route.Handler.Contract)
+
+	// --------------------- File ---------------------- //
+
+	// file route
+	fileRoute := route.RouteGroup.Group("/file")
+	fileHandler := NewFileHandler(route.Handler)
 
 	// verified user
 	fileRoute.Use(jwtMiddleware.VerifiedOnly)
-	fileRoute.Post("", fileHandler.Add)
 	fileRoute.Get("", fileHandler.BrowsePresignedKey)
+	fileRoute.Post("", fileHandler.Add)
 	fileRoute.Get("/:id", fileHandler.GetPresignedKey)
 	fileRoute.Delete("/:id", fileHandler.Delete)
+
+	// ------------------------------------------------- //
+
 }

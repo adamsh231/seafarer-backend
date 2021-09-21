@@ -21,13 +21,16 @@ func (route DocumentRoute) RegisterRoute() {
 
 	// init
 	handler := NewAfeHandler(route.Handler)
-	authRoute := route.RouteGroup.Group("/document")
-	fileRoute := authRoute.Group("/afe")
 	jwtMiddleware := middlewares.NewJWTMiddleware(route.Handler.Contract)
 
-	// verified user
-	fileRoute.Use(jwtMiddleware.VerifiedOnly)
-	fileRoute.Post("", handler.Save)
-	fileRoute.Get("", handler.Get)
-	fileRoute.Get("/download", handler.Download)
+	// --------------------- AFE ---------------------- //
+
+	afeRoute := route.RouteGroup.Group("/afe")
+	afeRoute.Use(jwtMiddleware.VerifiedOnly)
+	afeRoute.Get("", handler.Get)
+	afeRoute.Post("", handler.Save)
+	afeRoute.Get("/download", handler.Download)
+
+	// ------------------------------------------------ //
+
 }

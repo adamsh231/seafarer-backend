@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gofiber/fiber/v2"
 	"seafarer-backend/api"
-	userHandlers "seafarer-backend/api/user/router"
 	adminHandlers "seafarer-backend/api/admin/router"
+	userHandlers "seafarer-backend/api/user/router"
 
 	"seafarer-backend/server/http/middlewares"
 )
@@ -21,40 +21,49 @@ func NewAuthenticationRoute(routeGroup fiber.Router, handler api.Handler) Authen
 func (route AuthenticationRoute) RegisterRoute() {
 
 	// init
-	authRoute := route.RouteGroup.Group("/authentication")
-	adminRoute := authRoute.Group("/admin")
+	handler := NewAuthHandler(route.Handler)
 	jwtMiddleware := middlewares.NewJWTMiddleware(route.Handler.Contract)
 
-	// handler
-	handler := NewAuthHandler(route.Handler)
+	// --------------------- User ---------------------- //
+
+	// user route
+	userRoute := route.RouteGroup.Group("/user")
 	userHandler := userHandlers.NewUserHandler(route.Handler)
-	adminHandler:=adminHandlers.NewAdminHandler(route.Handler)
 
 	// Auth Route
-	authRoute.Post("/login", handler.Login)
-	authRoute.Post("/register", handler.Register)
-
-	// Auth Admin Route
-	adminRoute.Post("/login", handler.LoginAdmin)
+	userRoute.Post("/login", handler.Login)
+	userRoute.Post("/register", handler.Register)
 
 	// recover
-	authRecoverRoute := authRoute.Group("/recover")
+	authRecoverRoute := userRoute.Group("/recover")
 	authRecoverRoute.Post("/otp", handler.RecoverOTP)
 	authRecoverRoute.Post("/email/otp", handler.SendEmailOTPRecover)
-
-	authRecoverRoute.Use(jwtMiddleware.New)
-	authRecoverRoute.Post("/password", handler.RecoverChangePassword)
+	authRecoverRoute.Post("/password", jwtMiddleware.New, handler.RecoverChangePassword)
 
 	// non verified user
-	authNonVerifiedRoute := authRoute.Group("/verify").Use(jwtMiddleware.NonVerifiedOnly)
+	authNonVerifiedRoute := userRoute.Group("/verify").Use(jwtMiddleware.NonVerifiedOnly)
 	authNonVerifiedRoute.Post("/otp", handler.VerifyOTP)
 	authNonVerifiedRoute.Post("/email/otp", handler.SendEmailOTPVerify)
 
 	// verified user
-	authVerifiedRoute := authRoute.Group("/verified").Use(jwtMiddleware.VerifiedOnly)
+	authVerifiedRoute := userRoute.Group("/verified").Use(jwtMiddleware.VerifiedOnly)
 	authVerifiedRoute.Get("/current", userHandler.GetCurrentUser)
+
+	// -------------------------------------------------- //
+
+	// --------------------- Admin ---------------------- //
+
+	// admin route
+	adminRoute := route.RouteGroup.Group("/admin")
+	adminHandler:=adminHandlers.NewAdminHandler(route.Handler)
+
+	// login
+	adminRoute.Post("/login", handler.LoginAdmin)
 
 	// admin only
 	adminRoute.Use(jwtMiddleware.AdminOnly)
 	adminRoute.Get("/current", adminHandler.GetCurrent)
+
+	// -------------------------------------------------- //
+
 }
