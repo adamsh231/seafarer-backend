@@ -3,9 +3,9 @@ package libraries
 import (
 	"html/template"
 	"os"
+	"seafarer-backend/utils"
 
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
-	"github.com/adamsh231/seafarer-packages/helpers"
 )
 
 type HtmlToPdfLibrary struct {
@@ -22,7 +22,7 @@ func (lib HtmlToPdfLibrary) GeneratePdf(nameFile, pathFile, OutputFile string, f
 	}
 
 	// parsing email template
-	templateHelper := helpers.NewTemplateHelper()
+	templateHelper := utils.NewTemplateUtil()
 
 	tpl, err := templateHelper.ParseTemplateToBufferFuncMap(nameFile, pathFile, fmap, dataTemplate)
 
