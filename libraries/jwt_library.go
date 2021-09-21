@@ -2,10 +2,10 @@ package libraries
 
 import (
 	"errors"
+	"seafarer-backend/domain/constants"
+	"seafarer-backend/domain/constants/messages"
 	"time"
 
-	"github.com/adamsh231/seafarer-packages/constants"
-	"github.com/adamsh231/seafarer-packages/constants/messages"
 	"github.com/golang-jwt/jwt/v4"
 )
 

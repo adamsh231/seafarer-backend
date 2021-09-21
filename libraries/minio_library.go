@@ -5,9 +5,8 @@ import (
 	"mime/multipart"
 	"net/url"
 	"os"
+	"seafarer-backend/domain/constants"
 	"time"
-
-	"github.com/adamsh231/seafarer-packages/constants"
 
 	"github.com/minio/minio-go/v7"
 )

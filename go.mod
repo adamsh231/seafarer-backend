@@ -4,7 +4,6 @@ go 1.16
 
 require (
 	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.7.1
-	github.com/adamsh231/seafarer-packages v0.0.0-20210905124810-d465eb37124d
 	github.com/bcicen/go-units v1.0.2
 	github.com/go-playground/validator/v10 v10.9.0
 	github.com/go-redis/redis/v8 v8.11.3
