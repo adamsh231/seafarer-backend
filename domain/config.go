@@ -141,6 +141,10 @@ func LoadConfiguration() (config Config, err error) {
 	if err != nil {
 		return config, err
 	}
+	
+	//set doc afe directory
+	config.DocAFE.Name = os.Getenv(constants.EnvironmentDocAFEName)
+	config.DocAFE.Path = os.Getenv(constants.EnvironmentAppAssetsDirectory) + config.DocAFE.Name
 
 	// validator
 	config.Validator = validator.New()
