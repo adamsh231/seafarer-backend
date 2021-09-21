@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"html/template"
+	"os"
 	"seafarer-backend/api"
 	"seafarer-backend/api/document/interfaces"
 	"seafarer-backend/api/document/repositories"
@@ -80,16 +81,27 @@ func (uc AfeUseCase) DownloadAFE() (url string, err error) {
 	}
 
 	//generate file pdf
-	_, err = libPDF.GeneratePdf(uc.DocAFE.Name, uc.DocAFE.Path, uc.UserID, fMap, afe)
+	pdfFile, err := libPDF.GeneratePdf(uc.DocAFE.Name, uc.DocAFE.Path, uc.UserID, fMap, afe)
+	defer pdfFile.Close()
 	if err != nil {
-		api.NewErrorLog("AfeUseCase.DownloadAFE", "libraries.NewHtmlToPdfLibrary", err.Error())
+		api.NewErrorLog("AfeUseCase.DownloadAFE", "libPDF.GeneratePdf", err.Error())
 		return "", err
 	}
 
-	//url, err = uc.uploadToStorageAndGetPresignedKey(uc.UserID)
-	//if err != nil {
-	//	api.NewErrorLog("AfeUseCase.DownloadAFE", "libraries.MinioLibrary.UploadTypeOsFileWithPresignedKey", err.Error())
-	//	return "", err
-	//}
-	return url, err
+	//library function map
+	minioLibrary := libraries.MinioLibrary{
+		MinioClient: uc.Minio,
+		BucketName:  uc.MinioBucketName,
+	}
+
+	presignedURL, err := minioLibrary.UploadTypeOsFileWithPresignedKey(pdfFile)
+
+	if err != nil {
+		return "", err
+	}
+
+	//delete local file
+	os.Remove(pdfFile.Name())
+
+	return presignedURL, err
 }

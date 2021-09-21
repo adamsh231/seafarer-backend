@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application For Employment </title>
+    <style>
+        body {
+            -moz-transform: scale(0.8, 0.8); /* Moz-browsers */
+            zoom: 0.8; /* Other non-webkit browsers */
+            zoom: 50%; /* Webkit browsers */
+        }
+        th {
+            width: 16.67%;
+        }
+
+        td {
+            border: 2px solid #555a72;
+            text-align: center;
+            padding: 8px;
+            width: 10%;
+        }
+
+        .photo {
+            line-height: 250px;
+            width: 200px;
+            border: 3px solid #555a72;
+            display: inline-block;
+            text-align: center;
+            margin-right: 50px;
+        }
+
+        .bg-darkblue {
+            background-color: #839caf;
+        }
+
+        .bg-lightblue {
+            background-color: #efedef;
+        }
+
+        .c-blue {
+            color: #172a55;
+        }
+
+        .default-margin {
+            margin: 0;
+        }
+
+        .default-font-size {
+            font-size: 25px;
+        }
+
+        .text-left{
+            text-align: left;
+        }
+
+        .line-separate{
+            border-top-width: 5px;
+        }
+    </style>
+</head>
+<body>
+<table style="border-collapse: collapse; width: 90%; margin: auto">
+    <tr style="border: 2px solid #555a72">
+        <th colspan="2"></th>
+        <th colspan="2">
+            <div style="margin-top: 15px">
+                <img src="https://www.seafarindo.online/img/logo2.c34b3981.png" width="220px"/>
+                <h2 style="font-size: 60px" class="default-margin c-blue">PT. Seafarindo </h2>
+            </div>
+        </th>
+        <th colspan="2" style="text-align: right">
+            <div class="photo">
+                <span style="vertical-align: middle" class="default-font-size">Attach Photo</span>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h2 class="c-blue default-margin" style="font-size: 35px;">
+                APPLICATION FOR EMPLOYMENT
+            </h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <h2 class="default-margin" style="font-size: 20px; font-weight: lighter">
+                USING ELIGIBLE PRINT, PLEASE COMPLETE THIS FORM IN ITS ENTIRETY
+            </h2>
+        </td>
+    </tr>
+
+    <!--------------------------------------  Personal information  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                1. Personal Information
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                Last Name: {{ .PersonalInformation.LastName }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                First Name: {{ .PersonalInformation.FirstName }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Middle Name(s): {{ .PersonalInformation.MiddleName }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Date of Birth (mm/dd/yyyy): {{ .PersonalInformation.DateOfBirth.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Birth Place (city): {{ .PersonalInformation.BirthPlace }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Country of Birth: {{ .PersonalInformation.CountryOfBirth }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Nationality: {{ .PersonalInformation.Nationality }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Gender: {{ .PersonalInformation.Gender }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Hair Color: {{ .PersonalInformation.HairColor }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Weight: {{ (unitconv .PersonalInformation.Weight "kg" "lb") }}. or {{ .PersonalInformation.Weight }} kgs.
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Height: {{ (unitconv .PersonalInformation.Height "cm" "foot") }}, {{ (unitconv .PersonalInformation.Height "cm" "inch") }} or {{ .PersonalInformation.Height }} cm
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Do you have Tattoos? {{ if eq .PersonalInformation.HasTattoo true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left"></td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                Are the tattoos visible when wearing short-sleeved shirts, shorts or skirts? {{ if eq .PersonalInformation.IsTattooVisible true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+    </tr>
+
+    <!--------------------------------------  Contact information  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                2. Contact Information
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Permanent Address
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Street 1: {{ .ContactInformation.Street1 }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Street 2: {{ .ContactInformation.Street2 }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                City: {{ .ContactInformation.City }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                State/Province: {{ .ContactInformation.State }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Zip/Postal Code: {{ .ContactInformation.Zip }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Country: {{ .ContactInformation.Country }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Phone Numbers (include country codes and area codes) and E-mail
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Home Phone: {{ .ContactInformation.HomePhone }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Mobile Phone: {{ .ContactInformation.MobilePhone }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                E-mail Address: {{ .ContactInformation.Email }}
+            </p>
+        </td>
+    </tr>
+
+    <!--------------------------------------  Dependant information  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                3. Dependant Information
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                Marital Status: {{ .DependantInformation.MaritalStatus }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Number of children under 18 years of age?
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                {{ .DependantInformation.NumberOfChildrenUnder18 }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                Emergency Contact Information
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-lightblue text-left">
+            <p class="default-margin default-font-size">
+                In the event of an emergency, I would like the company to contact the following person or persons:
+            </p>
+        </td>
+    </tr>
+    {{ range $key, $person := .DependantInformation.Persons }}
+<!--    List Person -->
+    <tr>
+        <td colspan="3" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Person {{(increment $key)}}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Relationship: {{$person.Relationship}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                Last Name: {{$person.LastName}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                First Name: {{$person.FirstName}}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Middle Name(s): {{$person.MiddleName}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Home Phone: {{$person.HomePhone}}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Mobile Phone: {{$person.MobilePhone}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="text-left">
+            <p class="default-margin default-font-size">
+                Email Address: {{$person.Email}}
+            </p>
+        </td>
+    </tr>
+<!--    End Person-->
+    {{ end }}
+    <!--------------------------------------  Position Desired  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                4. Position Desired
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Position Desired : {{ .PositionDesired.PositionDesired}}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Salary Desired (USD): ${{ .PositionDesired.SalaryDesired}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Have you worked on cruise ships before: {{ if eq .PositionDesired.HasCruiseShip true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                If yes, list last company: {{ .PositionDesired.ListLastCompany}}
+            </p>
+        </td>
+    </tr>
+    <!--------------------------------------  Documentation Information  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                5. Documentation Information
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Passport Information
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Passport Number: {{ .DocumentationInformation.PassportNumber}}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Passport Nationality: {{ .DocumentationInformation.PassportNationality}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Date of Issue (mm/dd/yyyy): {{ .DocumentationInformation.DateOfIssue.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Place of Issue: {{ .DocumentationInformation.PlaceOfIssue}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Date of Expiration (mm/dd/yyyy): {{ .DocumentationInformation.DateOfExpiration.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left"></td>
+    </tr>
+
+    <!--  Enter Space  -->
+    <tr>
+        <td style="border-color: white;border-bottom-color: black;padding-bottom: 250px" colspan="6"></td>
+    </tr>
+
+    <!--  Crew Visas  -->
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Crew Visas
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                Type
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Yes/No
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Date of Expiration (mm/dd/yyyy)
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Visa No
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                Type
+            </p>
+        </td>
+    </tr>
+<!--    Start Crew visas-->
+    {{ range $key, $CrewVisa := .DocumentationInformation.CrewVisas }}
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                {{$CrewVisa.Name}}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ if eq $CrewVisa.YesOrNo true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $CrewVisa.DateOfExpiration.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{$CrewVisa.VisaNo}}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{$CrewVisa.Type}}
+            </p>
+        </td>
+    </tr>
+<!--  End Crew visas-->
+    {{end}}
+
+    <!--  STCW Certification  -->
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                STCW Certification
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                Type
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Yes/No
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Date of Expiration (mm/dd/yyyy)
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                Certificate Number
+            </p>
+        </td>
+    </tr>
+
+    {{ range $key, $StcwCert := .DocumentationInformation.STCWCertification }}
+    <!--    Start foreach STCW-->
+    <tr>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{$StcwCert.Type}}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ if eq $StcwCert.YesOrNo true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $StcwCert.DateOfExpiration.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{ $StcwCert.CertificateNumber }}
+            </p>
+        </td>
+    </tr>
+<!--    End SRCW foreach-->
+    {{end}}
+    <!--  Seaman’s Books  -->
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Seaman’s Books
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                Type
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Yes/No
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Date of Expiration (mm/dd/yyyy)
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Number
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                Nationality
+            </p>
+        </td>
+    </tr>
+    {{ range $key, $Seamans := .DocumentationInformation.SeamansBook }}
+    <!--    Start Foreach Seamans-->
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                {{$Seamans.Type}}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ if eq $Seamans.YesOrNo true }} Yes {{ else }} No {{ end }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $Seamans.DateOfExpiration.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $Seamans.Number }}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{ $Seamans.Nationality }}
+            </p>
+        </td>
+    </tr>
+<!--    End foreach seamans-->
+    {{ end }}
+    <!--  Other Certificates  -->
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Other Certificates
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                Type
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Yes/No or Not Applicable
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Date of Issue (mm/dd/yyyy)
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Date of Expiration (mm/dd/yyyy)
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                Comments
+            </p>
+        </td>
+    </tr>
+
+    {{ range $key, $OtherCerty := .DocumentationInformation.OtherCertificates }}
+    <!--    Start foreach Other Certy-->
+    <tr>
+        <td>
+            <p class="default-margin default-font-size">
+                {{$OtherCerty.Type}}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{$OtherCerty.YesOrNoOrNa}}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $OtherCerty.DateOfIssue.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                {{ $OtherCerty.DateOfExpiration.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{$OtherCerty.Comments}}
+            </p>
+        </td>
+    </tr>
+<!--    End Foreach Other Certy-->
+    {{ end }}
+
+    <!--------------------------------------  Employment History  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                6. Employment History
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                List most recent employer first
+            </p>
+        </td>
+    </tr>
+
+    {{ range $key, $EmpHistory := .EmploymentHistory }}
+<!--    Start foreach EmploymentHistory-->
+    <tr>
+        <td colspan="6" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+              <b>Company {{(increment $key)}}</b>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Employer/Company Name: {{ $EmpHistory.EmployerName }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Company Phone No: {{ $EmpHistory.CompanyPhoneNo }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Position Held: {{ $EmpHistory.PositionHeld }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Supervisor Name: {{ $EmpHistory.SupervisorName }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                From (mm/dd/yyyy): {{ $EmpHistory.From.Format "01/02/2006" }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                To (mm/dd/yyyy): c
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Starting Salary in USD: ${{ $EmpHistory.StartingSalary }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Ending Salary in USD: ${{ $EmpHistory.EndSalary }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-left">
+            <p class="default-margin default-font-size">
+                Reason for Leaving: {{ $EmpHistory.ReasonForLeaving }}
+            </p>
+        </td>
+        <td colspan="3" class="text-left"></td>
+    </tr>
+<!--    END Employe History-->
+{{ end }}
+
+    <!--  Enter Space  -->
+    <tr>
+        <td style="border-color: white;border-bottom-color: black;padding-bottom: 350px" colspan="6"></td>
+    </tr>
+
+    <!--------------------------------------  Education  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                7. Education
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <p class="default-font-size">
+                School Name and City
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                No. of Years
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                From (mm/dd/yyyy)
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                To (mm/dd/yyyy)
+            </p>
+        </td>
+        <td>
+            <p class="default-margin default-font-size">
+                Major/Diploma
+            </p>
+        </td>
+    </tr>
+
+    {{ range $key, $Edc := .Education }}
+    <!--    Start Foreach Education-->
+    <tr>
+        <td class="text-left">
+            <p class="default-margin default-font-size">
+                {{ $Edc.Type }}:
+            </p>
+        </td>
+        <td><p class="default-margin default-font-size">{{ $Edc.SchoolNameAndCity }}</p></td>
+        <td><p class="default-margin default-font-size">{{ $Edc.NoOfYears }}</p></td>
+        <td><p class="default-margin default-font-size">{{ $Edc.From.Format "01/02/2006" }}</p></td>
+        <td><p class="default-margin default-font-size">{{ $Edc.To.Format "01/02/2006" }}</p></td>
+        <td><p class="default-margin default-font-size">{{ $Edc.Major }}</p></td>
+    </tr>
+<!--    End Foreach Eductaion-->
+    {{ end }}
+    <!--------------------------------------  Languages  --------------------------------------------->
+    <tr>
+        <td colspan="6" class="bg-darkblue">
+            <h3 class="default-margin default-font-size">
+                8. Languages
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="bg-lightblue text-left">
+            <p class="default-margin default-font-size">
+                Language:
+            </p>
+        </td>
+        <td colspan="2" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Proficiency Level Speak:
+            </p>
+        </td>
+        <td colspan="2" class="bg-lightblue">
+            <p class="default-margin default-font-size">
+                Proficiency Level Write:
+            </p>
+        </td>
+    </tr>
+<!--    Start Foreach Languages-->
+    {{ range $key, $Lang := .Languages }}
+
+    <tr>
+        <td colspan="2" class="text-left">
+            <p class="default-margin default-font-size">
+                {{ $Lang.Language }}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{ $Lang.ProviciencyLevelSpeak }}
+            </p>
+        </td>
+        <td colspan="2">
+            <p class="default-margin default-font-size">
+                {{ $Lang.ProviciencyLevelWrite }}
+            </p>
+        </td>
+    </tr>
+<!--    End Foreach Languages-->
+    {{ end }}
+    <tr>
+        <td class="text-left" colspan="6" style="border-color: white">
+            <p class="default-margin default-font-size">
+                I hereby certify that all information contained in this application form is true and correct, and I understand that any mis-representation or intentional omissions are grounds for denial of hire or reason for dismissal.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="3" style="border-color: white;height: 300px;">
+            <p class="default-margin default-font-size">
+                ________________________<br>
+                Signature of Applicant
+            </p>
+        </td>
+        <td class="text-left" colspan="3" style="border-color: white;height: 300px;">
+            <p class="default-margin default-font-size">
+                ________________________<br>
+                Date (mm/dd/yyyy)
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="6" style="border-color: white;border-bottom-color: black;">
+            <p class="default-margin default-font-size">
+                <b>Please do not write in the space below. This section is to be completed by the recruitment agency. </b>
+            <hr>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="3">
+            <p class="default-margin default-font-size">
+                Agency Name
+            </p>
+        </td>
+        <td class="text-left" colspan="3">
+            <p class="default-margin default-font-size">
+                Location
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="2">
+            <p class="default-margin default-font-size">
+                Prescreened: Yes / No
+            </p>
+        </td>
+        <td class="text-left" colspan="2">
+            <p class="default-margin default-font-size">
+                Name of Prescreener:
+            </p>
+        </td>
+        <td class="text-left" colspan="2">
+            <p class="default-margin default-font-size">
+                Date of Prescreen:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="2">
+            <p class="default-margin default-font-size">
+                References checked: Yes / No
+            </p>
+        </td>
+        <td class="text-left" colspan="4">
+            <p class="default-margin default-font-size">
+                References checked by:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="2">
+            <p class="default-margin default-font-size">
+                Criminal Background Check: Yes / No
+            </p>
+        </td>
+        <td class="text-left" colspan="4">
+            <p class="default-margin default-font-size">
+                Background checked by:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="6" style="border-color: white;">
+            <p class="default-margin default-font-size">
+                <br>
+                <b>Interview Results:</b>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left" colspan="3" style="border-color: white;">
+            <table style="border-collapse: collapse; width: 90%; margin: auto">
+                <tr>
+                    <td class="text-left">Apollo Interviewer:</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Comments / Observations:</td>
+                </tr>
+                <tr>
+                    <td class="text-left" style="color: white">-</td>
+                </tr>
+                <tr>
+                    <td class="text-left" style="color: white">-</td>
+                </tr>
+                <tr>
+                    <td class="text-left" style="color: white">-</td>
+                </tr>
+                <tr>
+                    <td class="text-left" style="color: white">-</td>
+                </tr>
+                <tr>
+                    <td class="text-left" style="color: white">-</td>
+                </tr>
+            </table>
+        </td>
+        <td class="text-left" colspan="3" style="border-color: white;">
+            <table style="border-collapse: collapse; width: 90%; margin: auto">
+                <tr>
+                    <td class="text-left">Date: </td>
+                    <td class="text-left">Division: </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-left">Approved Position:</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Approved Salary: 5 / 4 / 2 / 1</td>
+                    <td class="text-left">Overall Rating:</td>
+                </tr>
+                <tr>
+                    <td class="text-left">English: 5 / 4 / 2 / 1</td>
+                    <td class="text-left">Tech. Prof. : 5 / 4 / 2 / 1</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Attitude: 5 / 4 / 2 / 1</td>
+                    <td class="text-left">Grooming: 5 / 4 / 2 / 1</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Social Skill: 5 / 4 / 2 / 1</td>
+                    <td class="text-left">Energy: 5 / 4 / 2 / 1</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Org. Fit: 5 / 4 / 2 / 1</td>
+                    <td class="text-left">Confidence: 5 / 4 / 2 / 1</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="border-color: white"></td>
+        <td style="border-color: white"></td>
+        <td style="border-color: white"></td>
+        <td style="border-color: white"></td>
+        <td style="border-color: white"></td>
+        <td style="border-color: white"></td>
+    </tr>
+</table>
+
+</body>
+</html>

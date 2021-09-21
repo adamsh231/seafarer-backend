@@ -44,6 +44,5 @@ func (lib HtmlToPdfLibrary) GeneratePdf(nameFile, pathFile, OutputFile string, f
 	if err != nil {
 		return nil, err
 	}
-	defer pdfFile.Close()
 	return pdfFile, err
 }
