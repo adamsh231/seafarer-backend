@@ -6,4 +6,6 @@ import (
 
 type IRecruitmentsUseCase interface {
 	AddCandidate(input *requests.CandidateRequest) (err error)
+
+	AddEmployee(input *requests.EmployeeRequest) (err error)
 }
