@@ -28,6 +28,9 @@ func (route FileRoute) RegisterRoute() {
 	fileRoute := route.RouteGroup.Group("/file")
 	fileHandler := NewFileHandler(route.Handler)
 
+	// admin only
+	fileRoute.Get("/filter/:id", jwtMiddleware.AdminOnly, fileHandler.BrowseByUser)
+
 	// verified user
 	fileRoute.Use(jwtMiddleware.VerifiedOnly)
 	fileRoute.Get("", fileHandler.BrowsePresignedKey)

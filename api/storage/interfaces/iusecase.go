@@ -17,4 +17,6 @@ type IFileUseCase interface {
 	Delete(fileID string) (err error)
 
 	PrivateUploadAndGetPresignedKey(file *multipart.FileHeader) (urlPresigned string, err error)
+
+	BrowseByUserID(userID string, request *requests.BrowseFilesRequest) (file presenters.FileBrowsePresenter, meta api.MetaResponsePresenter, err error)
 }

@@ -161,3 +161,21 @@ func (uc FileUseCase) PrivateUploadAndGetPresignedKey(file *multipart.FileHeader
 	}
 	return urlPresigned, err
 }
+
+func (uc FileUseCase) BrowseByUserID(userID string, request *requests.BrowseFilesRequest) (file presenters.FileBrowsePresenter, meta api.MetaResponsePresenter, err error) {
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(request.Page, request.PerPage, request.Order, request.Sort)
+
+	// repo browse files
+	repo := repositories.NewFileRepository(uc.Postgres)
+	dataFiles, count, err := repo.Browse(userID, offset, limit, request.Search, orderBy, sort)
+	if err != nil {
+		api.NewErrorLog("File.BrowseByUserID", "repo.Browse", err.Error())
+		return file, meta, err
+	}
+
+	file = file.Build(dataFiles, uc.Minio, uc.MinioBucketName, count)
+	meta = uc.SetPaginationResponse(page, limit, int(count))
+	return file, meta, err
+}

@@ -108,3 +108,22 @@ func (handler FileHandler) Upload(ctx *fiber.Ctx) error {
 
 	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, urlPresigned, http.StatusCreated)
 }
+
+func (handler FileHandler) BrowseByUser(ctx *fiber.Ctx) error {
+	userID := ctx.Params("id")
+
+	// get param
+	req := new(requests.BrowseFilesRequest)
+	if err := ctx.QueryParser(req); err != nil {
+		return err
+	}
+
+	// database processing
+	uc := usecase.NewFileUseCase(handler.Contract)
+	presenter, meta, err := uc.BrowseByUserID(userID, req)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusUnprocessableEntity)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.ListData, messages.SuccessMessage, meta, http.StatusOK)
+}
