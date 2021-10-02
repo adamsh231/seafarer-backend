@@ -17,3 +17,11 @@ type Recruitments struct {
 	UpdatedAt    time.Time `gorm:"column:updated_at"`
 	DeletedAt    time.Time `gorm:"column:deleted_at"`
 }
+
+func NewRecruitments() *Recruitments {
+	return &Recruitments{}
+}
+
+func (Recruitments) TableName() string {
+	return "recruitments"
+}

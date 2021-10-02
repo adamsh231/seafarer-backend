@@ -4,6 +4,7 @@ import (
 	"seafarer-backend/api"
 	authenticationRouter "seafarer-backend/api/authentication/router"
 	documentRouter "seafarer-backend/api/document/router"
+	recruitmentsRouter "seafarer-backend/api/recruitment/router"
 	storageRouter "seafarer-backend/api/storage/router"
 	userRouter "seafarer-backend/api/user/router"
 	"time"
@@ -68,4 +69,8 @@ func (router Router) RegisterRoutes() {
 	// User route
 	userGroup := apiV1Group.Group("/user")
 	userRouter.NewUserRoute(userGroup, router.Handler).RegisterRoute()
+
+	// Recruitment route
+	recruitmentGroup := apiV1Group.Group("/recruitment")
+	recruitmentsRouter.NewRecruitmentsRoute(recruitmentGroup, router.Handler).RegisterRoute()
 }
