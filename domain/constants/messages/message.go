@@ -22,4 +22,5 @@ const (
 	PasswordAndConfirmPasswordNotSameMessage = "password and confirm password doesn't match"
 	UnauthorizedFile                         = "file is not belong to this user"
 	FileIsExistMessage                       = "file name is already exist"
+	FailedBindQuery                          = "failed query binding"
 )

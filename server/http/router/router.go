@@ -5,6 +5,7 @@ import (
 	authenticationRouter "seafarer-backend/api/authentication/router"
 	documentRouter "seafarer-backend/api/document/router"
 	storageRouter "seafarer-backend/api/storage/router"
+	userRouter "seafarer-backend/api/user/router"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -63,4 +64,8 @@ func (router Router) RegisterRoutes() {
 	// Storage route
 	storageGroup := apiV1Group.Group("/storage")
 	storageRouter.NewFileRoute(storageGroup, router.Handler).RegisterRoute()
+
+	// User route
+	userGroup := apiV1Group.Group("/user")
+	userRouter.NewUserRoute(userGroup, router.Handler).RegisterRoute()
 }

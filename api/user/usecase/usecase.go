@@ -5,6 +5,7 @@ import (
 	"seafarer-backend/api/user/interfaces"
 	"seafarer-backend/api/user/repositories"
 	"seafarer-backend/api/user/router/presenters"
+	"seafarer-backend/api/user/router/requests"
 	"seafarer-backend/domain/models"
 )
 
@@ -41,4 +42,28 @@ func (uc UserUseCase) ChangePassword(password string) (err error) {
 	}
 
 	return err
+}
+
+func (uc UserUseCase) Filter(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoUsers := repositories.NewUserRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelUsers, total, err := repoUsers.Filter(offset, limit, orderBy, sort, filter.Search)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.Filter", "repoUsers.Filter", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterUsersPresenter().Build(modelUsers)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
 }

@@ -1,8 +1,9 @@
 package interfaces
 
 import (
-	"gorm.io/gorm"
 	"seafarer-backend/domain/models"
+
+	"gorm.io/gorm"
 )
 
 type IUserRepository interface {
@@ -13,4 +14,6 @@ type IUserRepository interface {
 	UpdateVerifiedByEmail(email string, tx *gorm.DB) (err error)
 
 	UpdatePasswordByEmail(email string, password string, tx *gorm.DB) (err error)
+
+	Filter(offset, limit int, orderBy, sort, search string) (model []models.User, count int64, err error)
 }
