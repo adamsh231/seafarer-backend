@@ -6,6 +6,7 @@ import (
 	"seafarer-backend/api/user/repositories"
 	"seafarer-backend/api/user/router/presenters"
 	"seafarer-backend/api/user/router/requests"
+	"seafarer-backend/domain/constants"
 	"seafarer-backend/domain/models"
 )
 
@@ -56,6 +57,78 @@ func (uc UserUseCase) Filter(filter *requests.UsersFilterRequest) (presenter pre
 	modelUsers, total, err := repoUsers.Filter(offset, limit, orderBy, sort, filter.Search)
 	if err != nil {
 		api.NewErrorLog("UserUseCase.Filter", "repoUsers.Filter", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterUsersPresenter().Build(modelUsers)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc UserUseCase) FilterCandidate(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoUsers := repositories.NewUserRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelUsers, total, err := repoUsers.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusCandidate)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterCandidate", "repoUsers.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterUsersPresenter().Build(modelUsers)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc UserUseCase) FilterEmployee(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoUsers := repositories.NewUserRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelUsers, total, err := repoUsers.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusEmployee)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterCandidate", "repoUsers.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterUsersPresenter().Build(modelUsers)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc UserUseCase) FilterLetter(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoUsers := repositories.NewUserRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelUsers, total, err := repoUsers.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusLetter)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterCandidate", "repoUsers.FilterByStatusRecruitment", err.Error())
 		return presenter, meta, err
 	}
 

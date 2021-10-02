@@ -56,3 +56,31 @@ func (repo UserRepository) Filter(offset, limit int, orderBy, sort, search strin
 	countQuery.Offset(-1).Limit(-1).Count(&count)
 	return model, count, err
 }
+
+func (repo UserRepository) FilterByStatusRecruitment(offset, limit int, orderBy, sort, search, status string) (model []models.User, count int64, err error) {
+	var modelUsers = models.NewUser()
+
+	queryBuilder := repo.Postgres.Model(&modelUsers)
+	queryBuilder.Select("users.id, users.name, users.email, users.created_at, users.is_verified, users.updated_at, users.deleted_at, users.company_id, recruitments.status AS status_recruitments")
+	queryBuilder.Joins("JOIN recruitments ON recruitments.user_id = users.id AND recruitments.status=?", status)
+	queryBuilder.Where("users.deleted_at IS NULL").
+		Where("users.is_verified = TRUE")
+
+	if search != "" {
+		queryBuilder.Where("users.name LIKE '%" + search + "%' OR users.email LIKE '%" + search + "%'")
+	}
+
+	countQuery := queryBuilder
+
+	queryBuilder.Order(orderBy + ` ` + sort)
+	queryBuilder.Offset(offset).Limit(limit)
+	err = queryBuilder.Scan(&model).Error
+
+	if err != nil {
+		return model, count, err
+	}
+
+	// hitung total data
+	countQuery.Offset(-1).Limit(-1).Count(&count)
+	return model, count, err
+}

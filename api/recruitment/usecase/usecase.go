@@ -5,6 +5,7 @@ import (
 	"seafarer-backend/api/recruitment/interfaces"
 	"seafarer-backend/api/recruitment/repositories"
 	"seafarer-backend/api/recruitment/router/requests"
+	"seafarer-backend/domain/constants"
 	"seafarer-backend/domain/models"
 	"time"
 
@@ -30,6 +31,7 @@ func (uc RecruitmentsUseCase) AddCandidate(input *requests.CandidateRequest) (er
 		CreatedAt:    now,
 		UpdatedAt:    now,
 		ExpectSalary: input.ExpectSallary,
+		Status:       constants.StatusCandidate,
 	}
 
 	// save not verified user

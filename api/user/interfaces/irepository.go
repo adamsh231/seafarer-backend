@@ -16,4 +16,6 @@ type IUserRepository interface {
 	UpdatePasswordByEmail(email string, password string, tx *gorm.DB) (err error)
 
 	Filter(offset, limit int, orderBy, sort, search string) (model []models.User, count int64, err error)
+
+	FilterByStatusRecruitment(offset, limit int, orderBy, sort, search, status string) (model []models.User, count int64, err error)
 }
