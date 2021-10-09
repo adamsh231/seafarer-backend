@@ -63,7 +63,7 @@ func (repo UserRepository) FilterUserAvailable(offset, limit int, orderBy, sort,
 	queryBuilder := repo.Postgres.Model(&modelUsers)
 	queryBuilder.Select("users.id, users.name, users.email, users.created_at, users.is_verified, users.updated_at, users.deleted_at, users.company_id, recruitments.status AS status_recruitments")
 	queryBuilder.Joins("LEFT JOIN recruitments ON recruitments.user_id = users.id")
-	queryBuilder.Where("users.deleted_at IS NULL OR recruitments.is_failed = true").
+	queryBuilder.Where("recruitments.status IS NULL OR recruitments.is_failed = true").
 		Where("users.is_verified = TRUE")
 
 	if search != "" {

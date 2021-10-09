@@ -31,9 +31,9 @@ func (route UserRoute) RegisterRoute() {
 	// Auth Route
 	userRoute.Use(jwtMiddleware.AdminOnly)
 	userRoute.Get("/filter", handler.Filter)
-	userRoute.Get("/available/filter", handler.FilterUserAvailable)
-	userRoute.Get("/candidate/filter", handler.FilterCandidate)
-	userRoute.Get("/employee/filter", handler.FilterEmployee)
-	userRoute.Get("/letter/filter", handler.FilterLetter)
+	userRoute.Get("/available/candidate/filter", handler.FilterUserAvailable)
+	userRoute.Get("/available/employee/filter", handler.FilterCandidate)
+	userRoute.Get("/available/letter/filter", handler.FilterEmployee)
+	userRoute.Get("/available/standbyletter/filter", handler.FilterLetter)
 
 }
