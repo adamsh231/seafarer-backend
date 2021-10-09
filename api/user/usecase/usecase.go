@@ -69,6 +69,30 @@ func (uc UserUseCase) Filter(filter *requests.UsersFilterRequest) (presenter pre
 	return presenter, meta, err
 }
 
+func (uc UserUseCase) FilterUserAvailable(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoUsers := repositories.NewUserRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelUsers, total, err := repoUsers.FilterUserAvailable(offset, limit, orderBy, sort, filter.Search)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterUserAvailable", "repoUsers.FilterUserAvailable", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterUsersPresenter().Build(modelUsers)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
 func (uc UserUseCase) FilterCandidate(filter *requests.UsersFilterRequest) (presenter presenters.ArrayFilterUsersPresenter, meta api.MetaResponsePresenter, err error) {
 
 	//init repo

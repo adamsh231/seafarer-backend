@@ -31,6 +31,7 @@ func (uc RecruitmentsUseCase) AddCandidate(input *requests.CandidateRequest) (er
 		CreatedAt:    now,
 		UpdatedAt:    now,
 		ExpectSalary: input.ExpectSalary,
+		Position:     input.Position,
 		Status:       constants.StatusCandidate,
 	}
 
@@ -51,7 +52,6 @@ func (uc RecruitmentsUseCase) AddEmployee(input *requests.EmployeeRequest) (err 
 	model := models.Recruitments{
 		UpdatedAt: now,
 		Salary:    input.Salary,
-		Position:  input.Position,
 		Status:    constants.StatusEmployee,
 	}
 

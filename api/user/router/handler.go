@@ -53,6 +53,29 @@ func (handler UserHandler) Filter(ctx *fiber.Ctx) error {
 	return handler.SendResponseWithMeta(ctx, presenter.FilterUsersPresenter, messages.SuccessMessage, meta, http.StatusOK)
 }
 
+func (handler UserHandler) FilterUserAvailable(ctx *fiber.Ctx) error {
+	filter := new(requests.UsersFilterRequest)
+
+	//data parsing
+	if ctx.QueryParser(filter) != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedBindQuery, nil, http.StatusBadRequest)
+	}
+
+	//data validation
+	if err := handler.Contract.Validator.Struct(filter); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), filter, http.StatusBadRequest)
+	}
+
+	//database proccesing
+	uc := usecase.NewUserUseCase(handler.Contract)
+	presenter, meta, err := uc.FilterUserAvailable(filter)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedMessage, nil, http.StatusBadRequest)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.FilterUsersPresenter, messages.SuccessMessage, meta, http.StatusOK)
+}
+
 func (handler UserHandler) FilterCandidate(ctx *fiber.Ctx) error {
 	filter := new(requests.UsersFilterRequest)
 
