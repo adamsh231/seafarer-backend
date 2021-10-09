@@ -65,3 +65,95 @@ func (handler RecruitmentsHandler) CreateEmployee(ctx *fiber.Ctx) error {
 
 	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, nil, http.StatusCreated)
 }
+
+func (handler RecruitmentsHandler) FilterCandidate(ctx *fiber.Ctx) error {
+	filter := new(requests.FilterRequest)
+
+	//data parsing
+	if ctx.QueryParser(filter) != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedBindQuery, nil, http.StatusBadRequest)
+	}
+
+	//data validation
+	if err := handler.Contract.Validator.Struct(filter); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), filter, http.StatusBadRequest)
+	}
+
+	//database proccesing
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	presenter, meta, err := uc.FilterCandidate(filter)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedMessage, nil, http.StatusBadRequest)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.FilterRecruimentPresenter, messages.SuccessMessage, meta, http.StatusOK)
+}
+
+func (handler RecruitmentsHandler) FilterEmployee(ctx *fiber.Ctx) error {
+	filter := new(requests.FilterRequest)
+
+	//data parsing
+	if ctx.QueryParser(filter) != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedBindQuery, nil, http.StatusBadRequest)
+	}
+
+	//data validation
+	if err := handler.Contract.Validator.Struct(filter); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), filter, http.StatusBadRequest)
+	}
+
+	//database proccesing
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	presenter, meta, err := uc.FilterEmployee(filter)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedMessage, nil, http.StatusBadRequest)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.FilterRecruimentPresenter, messages.SuccessMessage, meta, http.StatusOK)
+}
+
+func (handler RecruitmentsHandler) FilterLetter(ctx *fiber.Ctx) error {
+	filter := new(requests.FilterRequest)
+
+	//data parsing
+	if ctx.QueryParser(filter) != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedBindQuery, nil, http.StatusBadRequest)
+	}
+
+	//data validation
+	if err := handler.Contract.Validator.Struct(filter); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), filter, http.StatusBadRequest)
+	}
+
+	//database proccesing
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	presenter, meta, err := uc.FilterLetter(filter)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedMessage, nil, http.StatusBadRequest)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.FilterRecruimentPresenter, messages.SuccessMessage, meta, http.StatusOK)
+}
+
+func (handler RecruitmentsHandler) FilterStanbyLetter(ctx *fiber.Ctx) error {
+	filter := new(requests.FilterRequest)
+
+	//data parsing
+	if ctx.QueryParser(filter) != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedBindQuery, nil, http.StatusBadRequest)
+	}
+
+	//data validation
+	if err := handler.Contract.Validator.Struct(filter); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), filter, http.StatusBadRequest)
+	}
+
+	//database proccesing
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	presenter, meta, err := uc.FilterStandbyLetter(filter)
+	if err != nil {
+		return handler.SendResponseWithoutMeta(ctx, messages.FailedMessage, nil, http.StatusBadRequest)
+	}
+
+	return handler.SendResponseWithMeta(ctx, presenter.FilterRecruimentPresenter, messages.SuccessMessage, meta, http.StatusOK)
+}

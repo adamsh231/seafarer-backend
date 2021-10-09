@@ -5,6 +5,7 @@ import (
 	"seafarer-backend/api/recruitment/interfaces"
 	"seafarer-backend/api/recruitment/repositories"
 	"seafarer-backend/api/recruitment/router/requests"
+	"seafarer-backend/api/user/router/presenters"
 	"seafarer-backend/domain/constants"
 	"seafarer-backend/domain/models"
 	"time"
@@ -64,4 +65,100 @@ func (uc RecruitmentsUseCase) AddEmployee(input *requests.EmployeeRequest) (err 
 	}
 
 	return err
+}
+
+func (uc RecruitmentsUseCase) FilterCandidate(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoRecruitment := repositories.NewRecruitmentsRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelRecruitment, total, err := repoRecruitment.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusCandidate)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterCandidate", "repoRecruitment.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterRecruimentPresenter().Build(modelRecruitment)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc RecruitmentsUseCase) FilterEmployee(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoRecruitment := repositories.NewRecruitmentsRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelRecruitment, total, err := repoRecruitment.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusEmployee)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterEmployee", "repoRecruitment.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterRecruimentPresenter().Build(modelRecruitment)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc RecruitmentsUseCase) FilterLetter(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoRecruitment := repositories.NewRecruitmentsRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelRecruitment, total, err := repoRecruitment.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusLetter)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterLetter", "repoRecruitment.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterRecruimentPresenter().Build(modelRecruitment)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
+}
+
+func (uc RecruitmentsUseCase) FilterStandbyLetter(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error) {
+
+	//init repo
+	repoRecruitment := repositories.NewRecruitmentsRepository(uc.Postgres)
+
+	//set pagination
+	offset, limit, page, orderBy, sort := uc.SetPaginationParameter(filter.Page, filter.PerPage, filter.Order, filter.Sort)
+
+	//get data filter
+	modelRecruitment, total, err := repoRecruitment.FilterByStatusRecruitment(offset, limit, orderBy, sort, filter.Search, constants.StatusStandbyLetter)
+	if err != nil {
+		api.NewErrorLog("UserUseCase.FilterStandbyLetter", "repoRecruitment.FilterByStatusRecruitment", err.Error())
+		return presenter, meta, err
+	}
+
+	//build presenter
+	presenter = presenters.NewArrayFilterRecruimentPresenter().Build(modelRecruitment)
+
+	//set pagination
+	meta = uc.Contract.SetPaginationResponse(page, limit, int(total))
+
+	return presenter, meta, err
 }

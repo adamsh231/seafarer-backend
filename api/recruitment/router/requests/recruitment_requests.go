@@ -10,3 +10,11 @@ type EmployeeRequest struct {
 	UserID string  `json:"user_id" validate:"required"`
 	Salary float64 `json:"salary" validate:"required"`
 }
+
+type FilterRequest struct {
+	PerPage int    `query:"per_page, omitempty"`
+	Page    int    `query:"page, omitempty"`
+	Search  string `query:"search, omitempty"`
+	Order   string `query:"order, omitempty"`
+	Sort    string `query:"sort, omitempty"`
+}

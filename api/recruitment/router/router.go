@@ -30,6 +30,12 @@ func (route RecruitmentsRoute) RegisterRoute() {
 
 	// Auth Route
 	userRoute.Use(jwtMiddleware.AdminOnly)
+
+	userRoute.Get("/candidate/filter", handler.FilterCandidate)
+	userRoute.Get("/employee/filter", handler.FilterEmployee)
+	userRoute.Get("/letter/filter", handler.FilterLetter)
+	userRoute.Get("/standbyletter/filter", handler.FilterStanbyLetter)
+
 	userRoute.Post("/candidate", handler.CreateCandidate)
 	userRoute.Post("/employee", handler.CreateEmployee)
 
