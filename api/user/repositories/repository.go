@@ -61,9 +61,8 @@ func (repo UserRepository) FilterUserAvailable(offset, limit int, orderBy, sort,
 	var modelUsers = models.NewUser()
 
 	queryBuilder := repo.Postgres.Model(&modelUsers)
-	queryBuilder.Select("users.id, users.name, users.email, users.created_at, users.is_verified, users.updated_at, users.deleted_at, users.company_id, recruitments.status AS status_recruitments")
-	queryBuilder.Joins("LEFT JOIN recruitments ON recruitments.user_id = users.id")
-	queryBuilder.Where("recruitments.status IS NULL OR recruitments.is_failed = true").
+	queryBuilder.Select("users.id, users.name, users.email, users.created_at, users.is_verified, users.updated_at, users.deleted_at, users.company_id")
+	queryBuilder.Where("users.recruitment_id IS NULL").
 		Where("users.is_verified = TRUE")
 
 	if search != "" {
@@ -90,7 +89,7 @@ func (repo UserRepository) FilterByStatusRecruitment(offset, limit int, orderBy,
 
 	queryBuilder := repo.Postgres.Model(&modelUsers)
 	queryBuilder.Select("users.id, users.name, users.email, users.created_at, users.is_verified, users.updated_at, users.deleted_at, users.company_id, recruitments.status AS status_recruitments")
-	queryBuilder.Joins("JOIN recruitments ON recruitments.user_id = users.id AND recruitments.status=?", status)
+	queryBuilder.Joins("JOIN recruitments ON recruitments.id = users.recruitment_id AND recruitments.status=?", status)
 	queryBuilder.Where("users.deleted_at IS NULL").
 		Where("users.is_verified = TRUE")
 
