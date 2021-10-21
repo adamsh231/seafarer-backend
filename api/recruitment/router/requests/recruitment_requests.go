@@ -9,6 +9,17 @@ type CandidateRequest struct {
 type EmployeeRequest struct {
 	UserID string  `json:"user_id" validate:"required"`
 	Salary float64 `json:"salary" validate:"required"`
+	SignOn string  `json:"sign_on" validate:"required"`
+}
+
+type StanByLetterRequest struct {
+	UserID string `json:"user_id" validate:"required"`
+	Ship   string `json:"ship" validate:"required"`
+}
+
+type LetterRequest struct {
+	UserID string `json:"user_id" validate:"required"`
+	Letter string `json:"letter" validate:"required"`
 }
 
 type FilterRequest struct {

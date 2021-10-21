@@ -51,10 +51,53 @@ func (uc RecruitmentsUseCase) AddEmployee(input *requests.EmployeeRequest) (err 
 
 	// init
 	now := time.Now()
+	layout := "2006-01-02"
+	t, err := time.Parse(layout, input.SignOn)
 	model := models.Recruitments{
 		UpdatedAt: now,
 		Salary:    input.Salary,
+		SignOn:    t,
 		Status:    constants.StatusEmployee,
+	}
+
+	// save not verified user
+	repo := repositories.NewRecruitmentsRepository(uc.Postgres)
+	if err = repo.UpdateByIDUser(input.UserID, model, uc.PostgresTX); err != nil {
+		api.NewErrorLog("RecruitmentsUseCase.AddEmployee", "repositories.UpdateByIDUser", err.Error())
+		return err
+	}
+
+	return err
+}
+
+func (uc RecruitmentsUseCase) AddStandByLetter(input *requests.StanByLetterRequest) (err error) {
+
+	// init
+	now := time.Now()
+	model := models.Recruitments{
+		UpdatedAt: now,
+		UserID:    input.Ship,
+		Status:    constants.StatusStandbyLetter,
+	}
+
+	// save not verified user
+	repo := repositories.NewRecruitmentsRepository(uc.Postgres)
+	if err = repo.UpdateByIDUser(input.UserID, model, uc.PostgresTX); err != nil {
+		api.NewErrorLog("RecruitmentsUseCase.AddEmployee", "repositories.UpdateByIDUser", err.Error())
+		return err
+	}
+
+	return err
+}
+
+func (uc RecruitmentsUseCase) AddLetter(input *requests.LetterRequest) (err error) {
+
+	// init
+	now := time.Now()
+	model := models.Recruitments{
+		UpdatedAt: now,
+		Letter:    input.Letter,
+		Status:    constants.StatusLetter,
 	}
 
 	// save not verified user

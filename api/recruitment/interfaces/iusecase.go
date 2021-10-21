@@ -11,6 +11,10 @@ type IRecruitmentsUseCase interface {
 
 	AddEmployee(input *requests.EmployeeRequest) (err error)
 
+	AddStandByLetter(input *requests.StanByLetterRequest) (err error)
+
+	AddLetter(input *requests.LetterRequest) (err error)
+
 	FilterCandidate(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error)
 
 	FilterEmployee(filter *requests.FilterRequest) (presenter presenters.ArrayFilterRecruimentPresenter, meta api.MetaResponsePresenter, err error)

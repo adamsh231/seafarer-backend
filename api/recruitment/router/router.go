@@ -33,10 +33,12 @@ func (route RecruitmentsRoute) RegisterRoute() {
 
 	userRoute.Get("/candidate/filter", handler.FilterCandidate)
 	userRoute.Get("/employee/filter", handler.FilterEmployee)
-	userRoute.Get("/letter/filter", handler.FilterLetter)
 	userRoute.Get("/standbyletter/filter", handler.FilterStanbyLetter)
+	userRoute.Get("/letter/filter", handler.FilterLetter)
 
 	userRoute.Post("/candidate", handler.CreateCandidate)
 	userRoute.Post("/employee", handler.CreateEmployee)
+	userRoute.Post("/standbyletter", handler.CreateStanByLetter)
+	userRoute.Post("/letter", handler.CreateLetter)
 
 }

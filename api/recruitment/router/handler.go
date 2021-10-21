@@ -66,6 +66,54 @@ func (handler RecruitmentsHandler) CreateEmployee(ctx *fiber.Ctx) error {
 	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, nil, http.StatusCreated)
 }
 
+func (handler RecruitmentsHandler) CreateStanByLetter(ctx *fiber.Ctx) error {
+
+	// get & validate param
+	input := new(requests.StanByLetterRequest)
+	if err := ctx.BodyParser(input); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
+	}
+	if err := handler.Contract.Validator.Struct(input); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
+	}
+
+	// database processing
+	handler.Contract.PostgresTX = handler.Contract.Postgres.Begin()
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	err := uc.AddStandByLetter(input)
+	if err != nil {
+		handler.Contract.PostgresTX.Rollback()
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusUnprocessableEntity)
+	}
+	handler.Contract.PostgresTX.Commit()
+
+	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, nil, http.StatusCreated)
+}
+
+func (handler RecruitmentsHandler) CreateLetter(ctx *fiber.Ctx) error {
+
+	// get & validate param
+	input := new(requests.EmployeeRequest)
+	if err := ctx.BodyParser(input); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
+	}
+	if err := handler.Contract.Validator.Struct(input); err != nil {
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
+	}
+
+	// database processing
+	handler.Contract.PostgresTX = handler.Contract.Postgres.Begin()
+	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
+	err := uc.AddEmployee(input)
+	if err != nil {
+		handler.Contract.PostgresTX.Rollback()
+		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusUnprocessableEntity)
+	}
+	handler.Contract.PostgresTX.Commit()
+
+	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, nil, http.StatusCreated)
+}
+
 func (handler RecruitmentsHandler) FilterCandidate(ctx *fiber.Ctx) error {
 	filter := new(requests.FilterRequest)
 
