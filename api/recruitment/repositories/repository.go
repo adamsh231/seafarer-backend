@@ -16,7 +16,7 @@ func NewRecruitmentsRepository(postgres *gorm.DB) interfaces.IRecruitmentsReposi
 }
 
 func (repo RecruitmentsRepository) Add(model *models.Recruitments, tx *gorm.DB) (err error) {
-	return tx.Omit("deleted_at").Create(model).Error
+	return tx.Omit("deleted_at", "available_on", "sign_on").Create(model).Error
 }
 
 func (repo RecruitmentsRepository) UpdateByIDUser(idUser string, model models.Recruitments, tx *gorm.DB) (err error) {
