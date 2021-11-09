@@ -12,7 +12,7 @@ type EmployeeRequest struct {
 	SignOn string  `json:"sign_on" validate:"required"`
 }
 
-type StanByLetterRequest struct {
+type StandByLetterRequest struct {
 	UserID string `json:"user_id" validate:"required"`
 	Ship   string `json:"ship" validate:"required"`
 }

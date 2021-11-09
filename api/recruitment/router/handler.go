@@ -66,10 +66,10 @@ func (handler RecruitmentsHandler) CreateEmployee(ctx *fiber.Ctx) error {
 	return handler.SendResponseWithoutMeta(ctx, messages.SuccessMessage, nil, http.StatusCreated)
 }
 
-func (handler RecruitmentsHandler) CreateStanByLetter(ctx *fiber.Ctx) error {
+func (handler RecruitmentsHandler) CreateStandByLetter(ctx *fiber.Ctx) error {
 
 	// get & validate param
-	input := new(requests.StanByLetterRequest)
+	input := new(requests.StandByLetterRequest)
 	if err := ctx.BodyParser(input); err != nil {
 		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
 	}
@@ -93,7 +93,7 @@ func (handler RecruitmentsHandler) CreateStanByLetter(ctx *fiber.Ctx) error {
 func (handler RecruitmentsHandler) CreateLetter(ctx *fiber.Ctx) error {
 
 	// get & validate param
-	input := new(requests.EmployeeRequest)
+	input := new(requests.LetterRequest)
 	if err := ctx.BodyParser(input); err != nil {
 		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusBadRequest)
 	}
@@ -104,7 +104,7 @@ func (handler RecruitmentsHandler) CreateLetter(ctx *fiber.Ctx) error {
 	// database processing
 	handler.Contract.PostgresTX = handler.Contract.Postgres.Begin()
 	uc := usecase.NewRecruitmentsUseCase(handler.Contract)
-	err := uc.AddEmployee(input)
+	err := uc.AddLetter(input)
 	if err != nil {
 		handler.Contract.PostgresTX.Rollback()
 		return handler.SendResponseWithoutMeta(ctx, err.Error(), nil, http.StatusUnprocessableEntity)
@@ -183,7 +183,7 @@ func (handler RecruitmentsHandler) FilterLetter(ctx *fiber.Ctx) error {
 	return handler.SendResponseWithMeta(ctx, presenter.FilterRecruimentPresenter, messages.SuccessMessage, meta, http.StatusOK)
 }
 
-func (handler RecruitmentsHandler) FilterStanbyLetter(ctx *fiber.Ctx) error {
+func (handler RecruitmentsHandler) FilterStandByLetter(ctx *fiber.Ctx) error {
 	filter := new(requests.FilterRequest)
 
 	//data parsing

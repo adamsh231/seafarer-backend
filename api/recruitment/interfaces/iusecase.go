@@ -11,7 +11,7 @@ type IRecruitmentsUseCase interface {
 
 	AddEmployee(input *requests.EmployeeRequest) (err error)
 
-	AddStandByLetter(input *requests.StanByLetterRequest) (err error)
+	AddStandByLetter(input *requests.StandByLetterRequest) (err error)
 
 	AddLetter(input *requests.LetterRequest) (err error)
 

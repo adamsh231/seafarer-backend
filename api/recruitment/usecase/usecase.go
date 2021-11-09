@@ -70,7 +70,7 @@ func (uc RecruitmentsUseCase) AddEmployee(input *requests.EmployeeRequest) (err 
 	return err
 }
 
-func (uc RecruitmentsUseCase) AddStandByLetter(input *requests.StanByLetterRequest) (err error) {
+func (uc RecruitmentsUseCase) AddStandByLetter(input *requests.StandByLetterRequest) (err error) {
 
 	// init
 	now := time.Now()

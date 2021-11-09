@@ -5,5 +5,5 @@ const (
 	StatusCandidate     = "candidate"
 	StatusEmployee      = "employee"
 	StatusLetter        = "letter"
-	StatusStandbyLetter = "stanby_letter"
+	StatusStandbyLetter = "standby_letter"
 )
