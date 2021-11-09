@@ -1,5 +1,7 @@
 package requests
 
+import "time"
+
 type CandidateRequest struct {
 	UserID       string  `json:"user_id" validate:"required"`
 	ExpectSalary float64 `json:"expect_salary" validate:"required"`
@@ -7,9 +9,9 @@ type CandidateRequest struct {
 }
 
 type EmployeeRequest struct {
-	UserID string  `json:"user_id" validate:"required"`
-	Salary float64 `json:"salary" validate:"required"`
-	SignOn string  `json:"sign_on" validate:"required"`
+	UserID string    `json:"user_id" validate:"required"`
+	Salary float64   `json:"salary" validate:"required"`
+	SignOn time.Time `json:"sign_on" validate:"required"`
 }
 
 type StandByLetterRequest struct {

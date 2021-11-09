@@ -51,12 +51,10 @@ func (uc RecruitmentsUseCase) AddEmployee(input *requests.EmployeeRequest) (err 
 
 	// init
 	now := time.Now()
-	layout := "2006-01-02"
-	t, err := time.Parse(layout, input.SignOn)
 	model := models.Recruitments{
 		UpdatedAt: now,
 		Salary:    input.Salary,
-		SignOn:    t,
+		SignOn:    input.SignOn,
 		Status:    constants.StatusEmployee,
 	}
 
