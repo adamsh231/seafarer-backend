@@ -33,7 +33,6 @@ func (uc RecruitmentsUseCase) AddCandidate(input *requests.CandidateRequest) (er
 		UpdatedAt:    now,
 		ExpectSalary: input.ExpectSalary,
 		Position:     input.Position,
-		IsFailed:     false,
 		Status:       constants.StatusCandidate,
 	}
 
