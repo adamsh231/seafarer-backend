@@ -111,3 +111,7 @@ func (repo UserRepository) FilterByStatusRecruitment(offset, limit int, orderBy,
 	countQuery.Offset(-1).Limit(-1).Count(&count)
 	return model, count, err
 }
+
+func (repo UserRepository) Update(id string, model models.User, tx *gorm.DB) (err error) {
+	return tx.Model(models.NewUser()).Where("id = ?", id).Updates(&model).Error
+}

@@ -17,7 +17,9 @@ type IUserRepository interface {
 
 	Filter(offset, limit int, orderBy, sort, search string) (model []models.User, count int64, err error)
 
+	FilterUserAvailable(offset, limit int, orderBy, sort, search string) (model []models.User, count int64, err error)
+
 	FilterByStatusRecruitment(offset, limit int, orderBy, sort, search, status string) (model []models.User, count int64, err error)
 
-	FilterUserAvailable(offset, limit int, orderBy, sort, search string) (model []models.User, count int64, err error)
+	Update(id string, model models.User, tx *gorm.DB) (err error)
 }

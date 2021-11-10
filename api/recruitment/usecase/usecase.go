@@ -5,6 +5,7 @@ import (
 	"seafarer-backend/api/recruitment/interfaces"
 	"seafarer-backend/api/recruitment/repositories"
 	"seafarer-backend/api/recruitment/router/requests"
+	repositoriesUser "seafarer-backend/api/user/repositories"
 	"seafarer-backend/api/user/router/presenters"
 	"seafarer-backend/domain/constants"
 	"seafarer-backend/domain/models"
@@ -36,9 +37,19 @@ func (uc RecruitmentsUseCase) AddCandidate(input *requests.CandidateRequest) (er
 		Status:       constants.StatusCandidate,
 	}
 
-	// save not verified user
+	// save new candidate
 	repo := repositories.NewRecruitmentsRepository(uc.Postgres)
 	if err = repo.Add(model, uc.PostgresTX); err != nil {
+		api.NewErrorLog("RecruitmentsUseCase.AddCandidate", "repositories.Add", err.Error())
+		return err
+	}
+
+	// set recruitment_id in user
+	repoUser := repositoriesUser.NewUserRepository(uc.Postgres)
+	modelUser := models.User{
+		RecruitmentID: id,
+	}
+	if err = repoUser.Update(input.UserID, modelUser, uc.PostgresTX); err != nil {
 		api.NewErrorLog("RecruitmentsUseCase.AddCandidate", "repositories.Add", err.Error())
 		return err
 	}

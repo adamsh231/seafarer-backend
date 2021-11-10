@@ -16,11 +16,11 @@ func NewRecruitmentsRepository(postgres *gorm.DB) interfaces.IRecruitmentsReposi
 }
 
 func (repo RecruitmentsRepository) Add(model *models.Recruitments, tx *gorm.DB) (err error) {
-	return tx.Omit("deleted_at", "available_on", "sign_on").Create(model).Error
+	return tx.Omit("deleted_at", "available_on", "sign_on").Create(&model).Error
 }
 
 func (repo RecruitmentsRepository) UpdateByIDUser(idUser string, model models.Recruitments, tx *gorm.DB) (err error) {
-	return tx.Model(models.NewRecruitments()).Where("user_id = ?", idUser).Updates(model).Error
+	return tx.Model(models.NewRecruitments()).Where("user_id = ?", idUser).Updates(&model).Error
 }
 
 func (repo RecruitmentsRepository) FilterByStatusRecruitment(offset, limit int, orderBy, sort, search, status string) (model []models.RecruitmentsDetail, count int64, err error) {
